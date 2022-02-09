@@ -72,13 +72,26 @@
         <div class="headline text-white text-center">
           <h1 class="mb-3">Can't Find The Right Person?</h1>
           <h2 class="mb-4 mb-md-5"><strong>Try Again</strong> - Make a new search</h2>
-        </div>
+        </div>        
         <form>
-          <div class="input-group">
-            <input class="form-control" type="text" name="email" placeholder="Enter an Email Address" />
+          <!-- type of search -->
+          <div class="type-of-search mb-4 d-flex align-items-center">
+            <label class="mr-4 mb-0 text-white">Type of Search:</label>
+            <button id="btn-show-by-email" class="btn active position-relative mr-3" type="button">Email Address</button>
+            <button id="btn-show-by-phone" class="btn position-relative" type="button">Phone Number</button>
+          </div>         
+          <!-- email search container --> 
+          <div class="input-group" id="email-search-container">
+            <input id="input-search-email" class="form-control" type="text" name="email" placeholder="Enter an Email Address" />
             <p class="error-msg">Please enter a valid email address</p>
             <button id="btn-search" class="btn btn-form-submit text-uppercase" type="submit">Go!</button>
           </div>
+          <!-- phone search container -->  
+          <div class="input-group" id="phone-search-container">
+            <input id="input-search-phone" class="form-control" type="text" name="email" placeholder="Enter a Phone Number" />
+            <p class="error-msg">Please enter a valid phone number</p>
+            <button id="btn-search-phone" class="btn btn-form-submit text-uppercase" type="submit">Go!</button>
+          </div>         
         </form>
       </div>
     </section>
