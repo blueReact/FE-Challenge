@@ -17,12 +17,18 @@
         </a>
         <div>
           <img src="img/icn_search.svg" width="23" height="23" alt="Search">
-          <img class="ml-4" src="img/icn_person.svg" alt="Profile">
+          <img class="ml-4" src="img/icn_person.svg" width="20" height="23" alt="Profile">
         </div>
       </div>
     </nav>
     <section class="result">
       <div class="container">
+        <!-- result preload -->
+        <div class="result-preload text-center" id="result-preload">
+          <span class="result-loader mb-3"></span>
+          <h2 class="text-primary">Please wait a moment...</h2>
+        </div>
+        <!-- ./result preload -->
         <div class="headline text-center">
           <h1 id="result-count" class="text-primary mb-3"></h1>
           <h2 id="result-subtext" class="result-desc"></h2>

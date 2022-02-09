@@ -116,6 +116,20 @@ section {
   margin-left: 20px;
 }
 
+.btn-form-submit:hover {
+  background-color: #F2DA56;
+  background-image: none;
+  transition: none;
+}
+
+.btn-form-submit:active {
+  background-color: #F6BC25;
+}
+
+.btn-form-submit:focus {
+  box-shadow: 0 3px 0 0 #A6953B, inset 0 1px 0 0 #FFFFFF;
+}
+
 .input-group > .form-control {
   height: 70px;
   background: #FFF;
@@ -173,6 +187,9 @@ section {
   }
   .btn-form-submit {
     margin: 12px 0 0 0;
+  }
+  .input-group.error .error-msg {
+    position: static;
   }
 }
 
@@ -312,6 +329,28 @@ section {
 
 .result-desc {
   color: #4A4A4A;
+}
+
+.result-loader {
+  background-image: url("../img/loading_spinner.svg");
+  width: 154px;
+  height: 154px;
+  display: inline-block;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+
+.result-preload h2 {
+  font-size: 18px;
+  letter-spacing: 0;
+  font-weight: 700;
 }
 
 @media (max-width: 991px) {
