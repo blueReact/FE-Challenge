@@ -1,5 +1,6 @@
-$(document).ready(function () {  
-  $("#result-preload").css("display", "block"); //Showing a preload to the user before API gets data 
+(function($) {  
+  let resultPreload= $("#result-preload");
+  resultPreload.css("display", "block"); //Showing a preload to the user before API gets data 
 
   /**
    * Gets an object and sets its content into the result card in the result page
@@ -8,17 +9,17 @@ $(document).ready(function () {
   setTimeout(function () { //Mimicking a 2000ms delay to show loader 
     if (window.localStorage) {
       if (localStorage.userObject) {
-        var user_object = localStorage.getItem('userObject');
-        var testVar;
-        retreivedObject = JSON.parse(user_object); //parses the retrieved object into an JSON object
-        $("#result-preload").css("display", "none"); //Hiding the preload
+        let userObject = localStorage.getItem('userObject');
+        let resultCount = $('#result-count');
+        let retreivedObject = JSON.parse(userObject); //parses the retrieved object into an JSON object
+        resultPreload.css("display", "none"); //Hiding the preload
         if (JSON.stringify(retreivedObject) == "[]") {
-          $('#result-count').text("0 Results");
+          resultCount.text("0 Results");
           $(".result-desc").text(
             "Try starting a new search below"
           );
         } else {
-          $('#result-count').text("1 Result");
+          resultCount.text("1 Result");
           $("#result-subtext").html("Look at the result below to see the details of the person you’re searched for.");
           $(".name").append(
             retreivedObject.first_name + " " + retreivedObject.last_name
@@ -47,4 +48,4 @@ $(document).ready(function () {
       }
     }
   }, 2000);
-});
+})(jQuery);
