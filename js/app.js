@@ -92,7 +92,7 @@ $(document).ready(function () {
   $('#input-search-phone').keypress(function (event) {
     let phone = $('#input-search-phone').val().toLowerCase(); 
     let regEx = /^\d{10}$/;    
-    let keycode = (event.keyCode ? event.keyCode : event.which);
+    let keycode = (event.keyCode ? event.keyCode : event.which);    
     
     if (keycode == '13') {
       /**
@@ -101,7 +101,7 @@ $(document).ready(function () {
        */
       event.preventDefault();
       localStorage.clear(); //Clears storage for next request      
-      getData(regEx, phone); //Calling a common function which holds API related logic 
+      getApiData(regEx, phone); //Calling a common function which holds API related logic 
     }
   });
 
