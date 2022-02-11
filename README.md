@@ -47,4 +47,4 @@
 * Right click on index.html and select "Open with Live Server" 
 
 ## Testing
-This application has been tested on several major browsers like Chrome, Mozilla, Microsoft Edge along with emulators and physical mobiles devices.
+This application has been tested on several major browsers like Chrome, Mozilla, Microsoft Edge along with emulators and physical mobile devices.
