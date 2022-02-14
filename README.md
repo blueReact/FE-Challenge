@@ -31,6 +31,7 @@
 ### refactor
 - Added various refactoring methods to achive less code
 - Added useful comments
+- Improvised User Experience 
 
 ### fix (Missed by QA)
 - I have noticed and fixed few UI bugs that the QA document missed
