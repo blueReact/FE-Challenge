@@ -17,17 +17,31 @@
     $(this).addClass("active").siblings().removeClass("active");
   });
 
+  //Validation Object
+  var validation = {
+    //Email validation function accepting sanitized value as parameter 
+    emailValidation : function(sanitizedValue) {
+      const regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      return regEx.test(sanitizedValue);
+    },
+
+    //Phone validation function accepting sanitized value as parameter 
+    phoneValidation : function(sanitizedValue) {
+      const regEx = /^\d{10}$/; //Regex for 10 digit phone numbers
+      return regEx.test(sanitizedValue);
+    }    
+  };
+
   $("#btn-search-email").on("click", function (e) {
     e.preventDefault();
     localStorage.clear(); //Clears storage for next request
-    let email = inputSearchEmail.val().trim().toLowerCase(); //trimmed white spaces
-    let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    getEmailApiData(regEx, email); //Calling getEmailApiData function which holds email API related logic
+    let sanitizedValue = inputSearchEmail.val().trim().toLowerCase(); //Trimmed white spaces
+    let isValidated = validation.emailValidation(sanitizedValue); //Calling validation Object 
+    getApiData(isValidated, sanitizedValue, false, $(this)); //Calling getApiData function which holds API related logic
   });
 
   inputSearchEmail.keypress(function (event) {
-    let email = inputSearchEmail.val().trim().toLowerCase(); //trimmed white spaces
-    let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    let sanitizedValue = inputSearchEmail.val().trim().toLowerCase(); //Trimmed white spaces
     let keyCodeValue = event.keyCode ? event.keyCode : event.which;
     if (keyCodeValue == "13") {
       /**
@@ -35,22 +49,24 @@
        * If there's a response, it gets stored in the local storage and redirects to results page
        */
       event.preventDefault();
-      localStorage.clear(); //Clears storage for next request
-      getEmailApiData(regEx, email); //Calling getEmailApiData function which holds email API related logic
+      localStorage.clear(); //Clears storage for next request   
+      let isValidated = validation.emailValidation(sanitizedValue); //Calling validation Object   
+      getApiData(isValidated, sanitizedValue, false, $(this)); //Calling getApiData function which holds API related logic
     }
   });
 
   $("#btn-search-phone").on("click", function (e) {
     e.preventDefault();
     localStorage.clear(); //Clears storage for next request
-    let phone = inputSearchPhone.val().trim().toLowerCase(); //trimmed white spaces
-    let regEx = /^\d{10}$/;
-    getPhoneApiData(regEx, phone); //Calling getPhoneApiData function which holds phone API related logic
+    let sanitizedValue = inputSearchPhone.val().trim().toLowerCase(); //trimmed white spaces
+    let isPhone = true;
+    let isValidated = validation.phoneValidation(sanitizedValue); //Calling validation Object
+    getApiData(isValidated, sanitizedValue, isPhone, $(this)); //Calling getApiData function which holds API related logic
   });
 
   inputSearchPhone.keypress(function (event) {
-    let phone = inputSearchPhone.val().trim().toLowerCase(); //trimmed white spaces
-    let regEx = /^\d{10}$/;
+    let sanitizedValue = inputSearchPhone.val().trim().toLowerCase(); //trimmed white spaces
+    let isPhone = true;
     let keyCodeValue = event.keyCode ? event.keyCode : event.which;
     if (keyCodeValue == "13") {
       /**
@@ -59,29 +75,20 @@
        */
       event.preventDefault();
       localStorage.clear(); //Clears storage for next request
-      getPhoneApiData(regEx, phone); //Calling getPhoneApiData function which holds phone API related logic
+      let isValidated = validation.phoneValidation(sanitizedValue); //Calling validation Object
+      getApiData(isValidated, sanitizedValue, isPhone, $(this)); //Calling getApiData function which holds API related logic
     }
-  });
+  });  
 
-  function getEmailApiData(regEx, email) {
-    if (email.match(regEx)) {
-      inputSearchEmail.parent().removeClass("error");
-      const url =
-        "https://ltv-data-api.herokuapp.com/api/v1/records.json?email=" + email;
-      fetchApiData(url); //Calling actual API to fetch data
-    } else {
-      inputSearchEmail.parent().addClass("error");
-    }
-  }
 
-  function getPhoneApiData(regEx, phone) {
-    if (phone.match(regEx)) {
-      inputSearchPhone.parent().removeClass("error");
-      const url =
-        "https://ltv-data-api.herokuapp.com/api/v1/records.json?phone=" + phone;
-      fetchApiData(url); //Calling actual API to fetch data
+  function getApiData(isValidated, sanitizedValue, isPhone, thisObject) {
+    if (isValidated) {      
+      thisObject.parent().removeClass("error");      
+      const url = isPhone ? "https://ltv-data-api.herokuapp.com/api/v1/records.json?phone=" + sanitizedValue : "https://ltv-data-api.herokuapp.com/api/v1/records.json?email=" + sanitizedValue;
+      return fetchApiData(url); //Calling actual API to fetch data
     } else {
-      inputSearchPhone.parent().addClass("error");
+      thisObject.parent().addClass("error");
+      return;
     }
   }
 
