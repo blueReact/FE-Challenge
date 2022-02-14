@@ -1,7 +1,4 @@
-(function($) {  
-  let resultPreload= $("#result-preload");
-  resultPreload.css("display", "block"); //Showing a preload to the user before API gets data 
-
+(function($) {   
   /**
    * Gets an object and sets its content into the result card in the result page
    * If there's no content in the JSON object, makes sure to tell the user
@@ -10,7 +7,6 @@
     let userObject = localStorage.getItem('userObject');
     let resultCount = $('#result-count');
     let retreivedObject = JSON.parse(userObject); //parses the retrieved object into an JSON object
-    resultPreload.css("display", "none"); //Hiding the preload
     return JSON.stringify(retreivedObject) === "[]" ? zeroResults(resultCount) : foundResult(resultCount, retreivedObject);      
   }  
 

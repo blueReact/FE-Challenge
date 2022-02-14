@@ -3,7 +3,9 @@
   let elementEmailSearch = $("#email-search-container");
   let inputSearchPhone = $("#input-search-phone");
   let inputSearchEmail = $("#input-search-email");  
+  let resultPreload = $('#result-preload');
   elementPhoneSearch.hide();
+  resultPreload.hide();
   
   $("#btn-show-by-email").on("click", function () {
     elementEmailSearch.show();
@@ -50,7 +52,7 @@
        */
       event.preventDefault();
       localStorage.clear(); //Clears storage for next request   
-      let isValidated = validation.emailValidation(sanitizedValue); //Calling validation Object   
+      let isValidated = validation.emailValidation(sanitizedValue); //Calling validation Object 
       getApiData(isValidated, sanitizedValue, false, $(this)); //Calling getApiData function which holds API related logic
     }
   });
@@ -60,7 +62,7 @@
     localStorage.clear(); //Clears storage for next request
     let sanitizedValue = inputSearchPhone.val().trim().toLowerCase(); //trimmed white spaces
     let isPhone = true;
-    let isValidated = validation.phoneValidation(sanitizedValue); //Calling validation Object
+    let isValidated = validation.phoneValidation(sanitizedValue); //Calling validation Object    
     getApiData(isValidated, sanitizedValue, isPhone, $(this)); //Calling getApiData function which holds API related logic
   });
 
@@ -83,7 +85,8 @@
 
   function getApiData(isValidated, sanitizedValue, isPhone, thisObject) {
     if (isValidated) {      
-      thisObject.parent().removeClass("error");      
+      thisObject.parent().removeClass("error");  
+      resultPreload.show();    
       const url = isPhone ? "https://ltv-data-api.herokuapp.com/api/v1/records.json?phone=" + sanitizedValue : "https://ltv-data-api.herokuapp.com/api/v1/records.json?email=" + sanitizedValue;
       return fetchApiData(url); //Calling actual API to fetch data
     } else {
@@ -98,6 +101,7 @@
       .then((response) => response.text())
       .then(function (contents) {
         localStorage.setItem("userObject", contents);
+        resultPreload.hide();
         window.location.href = "result.html";
       })
       .catch((e) => console.log(e));

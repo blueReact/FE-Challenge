@@ -394,6 +394,20 @@ section {
   }
 }
 
+.overlay {  
+  left: 0;
+  top: 0;
+  z-index: 998;
+}
+
+.result-preload {
+  left: 50%;
+  top: 50%;
+  margin-left: -77px;
+  margin-top: -77px;
+  z-index: 999;
+}
+
 .result-preload h2 {
   font-size: 18px;
   letter-spacing: 0;
